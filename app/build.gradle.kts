@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.potatomioo.tweeto"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.potatomioo.tweeto"
