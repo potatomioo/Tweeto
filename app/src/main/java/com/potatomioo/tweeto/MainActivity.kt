@@ -16,27 +16,34 @@ import com.potatomioo.tweeto.api.TweetoApi
 import com.potatomioo.tweeto.ui.theme.TweetoTheme
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.multibindings.IntKey
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import okhttp3.Response
 import javax.inject.Inject
 import kotlin.math.log
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     @Inject
-    lateinit var tweetoApi : TweetoApi
+    lateinit var tweetoapi: TweetoApi
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GlobalScope.launch {
-            var response = tweetoApi.getCategories()
-            Log.d("All category",response.body().toString())
-            var result = tweetoApi.getCategories()
-            Log.d("distinct",result.body()?.distinct().toString())
+            var response = tweetoapi.getCateories()
+            Log.d("hey", "onCreate: ${response.body()?.distinct().toString()}")
+
+            var sportTweets = tweetoapi.getTweets("tweets[?(@.category == 'sport')]")
+            var content = sportTweets.body()?.toString()
+            Log.d("tweets","$content")
         }
         enableEdgeToEdge()
         setContent {
             TweetoTheme {
-
+                Text("Testing")
             }
         }
     }
