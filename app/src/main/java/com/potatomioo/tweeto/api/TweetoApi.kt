@@ -8,13 +8,11 @@ import retrofit2.http.Headers
 
 interface TweetoApi {
 
-    //two ways of handling headers notations
+    @GET("v3/b/679096b3e41b4d34e47cb8c7?meta=false")
+    suspend fun getTweets(@Header("X-JSON-Path")category : String) : Response<List<tweetsItem>>
 
-    @GET("https://api.jsonbin.io/v3/b/6784e9b7acd3cb34a8cadbbc?meta=false")
-    suspend fun getTweets(@Header("X-JSON-Path") category : String) : Response<List<tweetsItem>>
+    @GET("v3/b/679096b3e41b4d34e47cb8c7?meta=false")
+    @Headers("X-JSON-Path:tweets..category")
+    suspend fun getCateories() : Response<List<String>>
 
-
-    @GET("https://api.jsonbin.io/v3/b/6784e9b7acd3cb34a8cadbbc?meta=false")
-    @Headers("X-JSON-Path: tweets..category")
-    suspend fun getCategories():Response<List<String>>
 }
