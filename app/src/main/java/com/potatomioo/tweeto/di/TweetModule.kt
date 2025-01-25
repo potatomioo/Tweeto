@@ -12,14 +12,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 class TweetModule{
 
-
     @Singleton
     @Provides
-    fun provideRetrofit() : Retrofit{
+    fun provideRetrofit():Retrofit{
         return Retrofit.Builder().baseUrl("https://api.jsonbin.io")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -27,7 +27,7 @@ class TweetModule{
 
     @Singleton
     @Provides
-    fun provideTweets(retrofit: Retrofit) : TweetoApi{
+    fun provideTweetoApi(retrofit: Retrofit):TweetoApi{
         return retrofit.create(TweetoApi::class.java)
     }
 
