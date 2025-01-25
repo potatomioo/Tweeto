@@ -26,7 +26,7 @@ class repository @Inject constructor(private val tweetoApi: TweetoApi){
     }
 
     suspend fun getTweets(category : String){
-        val response = tweetoApi.getTweets(category)
+        val response = tweetoApi.getTweets("tweets[?(@.category==\"$category\")]")
         if(response.isSuccessful && response.body() != null){
             _tweets.emit(response.body()!!)
         }
