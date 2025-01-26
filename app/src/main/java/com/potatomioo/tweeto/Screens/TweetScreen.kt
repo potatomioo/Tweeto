@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.potatomioo.tweeto.models.tweetsItem
 import com.potatomioo.tweeto.viewModel.TweetViewModel
@@ -25,7 +26,7 @@ import kotlinx.coroutines.flow.count
 
 @Composable
 fun tweetScreen(modifier: Modifier = Modifier) {
-    val tweetViewModel : TweetViewModel = viewModel()
+    val tweetViewModel : TweetViewModel = hiltViewModel()
     val tweet = tweetViewModel._tweets.collectAsState()
 
     LazyColumn(

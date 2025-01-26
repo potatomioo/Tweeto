@@ -23,14 +23,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.potatomioo.tweeto.viewModel.CategoryViewModel
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun categoryScreen() {
+fun categoryScreen(onClick : (category : String) -> Unit) {
 
-    val categoryViewModel : CategoryViewModel = viewModel()
+    val categoryViewModel : CategoryViewModel = hiltViewModel()
     val categories = categoryViewModel._categories.collectAsState()
 
     LazyColumn(
@@ -40,13 +41,13 @@ fun categoryScreen() {
             .padding(5.dp)
     ) {
         items(categories.value.distinct()){
-            categoryItem(it,{})
+            categoryItem(it,onClick)
         }
     }
 }
 
 @Composable
-fun categoryItem( categoryName : String , onClick : () -> Unit) {
+fun categoryItem( categoryName : String , onClick : (category : String) -> Unit) {
     Card(
         border = BorderStroke(width = 2.dp, color = Color.Black),
         modifier = Modifier
@@ -54,7 +55,7 @@ fun categoryItem( categoryName : String , onClick : () -> Unit) {
             .height(50.dp)
             .padding(4.dp)
             .clickable {
-                onClick()
+                onClick(categoryName)
             }
     ) {
         Box(
